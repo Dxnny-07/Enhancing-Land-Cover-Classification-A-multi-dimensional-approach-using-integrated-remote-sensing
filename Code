@@ -13,7 +13,7 @@ import warnings
 warnings.filterwarnings("ignore")
 
 # DATA Directory
-DATA_DIR = r'C:\Users\KIRAN-KK\Downloads\archive'
+DATA_DIR = r'C:\Users\KIRAN-KK\Downloads\archive' #change directories to your respective dataset directories
 
 # Read metadata and shuffle
 metadata_df = pd.read_csv(os.path.join(DATA_DIR, 'metadata.csv'))
