@@ -13,7 +13,7 @@ import warnings
 warnings.filterwarnings("ignore")
 
 # DATA Directory
-DATA_DIR = '../input/deepglobe-land-cover-classification-dataset'
+DATA_DIR = r'C:\Users\KIRAN-KK\Downloads\archive'
 
 # Read metadata and shuffle
 metadata_df = pd.read_csv(os.path.join(DATA_DIR, 'metadata.csv'))
@@ -71,14 +71,14 @@ def colour_code_segmentation(image, label_values):
 
 # Dataset class
 class LandCoverDataset(torch.utils.data.Dataset):
-    def _init_(self, df, class_rgb_values=None, augmentation=None, preprocessing=None):
+    def __init__(self, df, class_rgb_values=None, augmentation=None, preprocessing=None):
         self.image_paths = df['sat_image_path'].tolist()
         self.mask_paths = df['mask_path'].tolist()
         self.class_rgb_values = class_rgb_values
         self.augmentation = augmentation
         self.preprocessing = preprocessing
 
-    def _getitem_(self, i):
+    def __getitem__(self, i):
         image = cv2.cvtColor(cv2.imread(self.image_paths[i]), cv2.COLOR_BGR2RGB)
         mask = cv2.cvtColor(cv2.imread(self.mask_paths[i]), cv2.COLOR_BGR2RGB)
         mask = one_hot_encode(mask, self.class_rgb_values).astype('float')
@@ -93,7 +93,7 @@ class LandCoverDataset(torch.utils.data.Dataset):
             
         return image, mask
 
-    def _len_(self):
+    def __len__(self):
         return len(self.image_paths)
 
 # Define augmentations
